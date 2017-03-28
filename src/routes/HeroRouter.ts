@@ -13,8 +13,32 @@ export class HeroRouter{
 		return res.send(Heroes);
 	}
 
+	public getOne(req:Request,res:Response,next:NextFunction){
+		let query = parseInt(req.params.id);
+		let hero = Heroes.find(hero=>hero.id === query);
+
+		if( hero ){
+			return res
+				.status(200)
+				.send({
+					message: "success",
+					status: res.status,
+					hero
+				});
+		} else {
+			return res
+				.status(404)
+				.send({
+					message: 'No hero found with given id.',
+					status: res.status,
+				});
+		}
+
+	}
+
 	init(){
 		this.router.get('/',this.getAll);
+		this.router.get('/:id',this.getOne);
 	}
 }
 
