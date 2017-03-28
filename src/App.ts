@@ -2,6 +2,7 @@ import * as path from "path";
 import * as express from "express";
 import * as logger from "morgan";
 import * as bodyParser from "body-parser";
+import HeroRouter from "./routes/HeroRouter";
 
 // Create and config a new ExpressJS web server
 class App{
@@ -29,6 +30,7 @@ class App{
 			res.json({message: 'Hello World!'});
 		});
 		this.express.use('/',router);
+		this.express.use('/api/v1/heroes',HeroRouter);
 	}
 }
 
